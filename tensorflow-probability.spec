@@ -1,6 +1,6 @@
 Name     : tensorflow-probability
 Version  : 0.6.0
-Release  : 3
+Release  : 4
 URL      : https://github.com/tensorflow/probability/archive/v0.6.0.tar.gz
 Source0  : https://github.com/tensorflow/probability/archive/v0.6.0.tar.gz
 
