@@ -1,6 +1,6 @@
 Name     : tensorflow-probability
 Version  : 0.7
-Release  : 4
+Release  : 5
 URL      : https://github.com/tensorflow/probability/archive/v0.7.tar.gz
 Source0  : https://github.com/tensorflow/probability/archive/v0.7.tar.gz
 
@@ -38,6 +38,7 @@ Requires : absl-py
 Requires : astor
 Requires : backports.weakref
 Requires : bleach
+Requires : decorator
 Requires : gast
 Requires : grpcio
 Requires : tensorboard
