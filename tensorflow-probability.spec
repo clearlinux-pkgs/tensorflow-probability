@@ -10,45 +10,37 @@ Source0  : https://github.com/tensorflow/probability/archive/v0.7.tar.gz
 %define debug_package %{nil}
 
 
-#Source104: 0001-enum34-is-only-required-for-Python-3.4.patch
-
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 GPL-3.0 MPL-2.0-no-copyleft-exception
 BuildRequires : pip
 
-BuildRequires : python3-dev
-BuildRequires : setuptools
-BuildRequires : wheel
-BuildRequires : openjdk
-BuildRequires : openjdk-dev
-BuildRequires : numpy
-#BuildRequires : six
-#BuildRequires : protobuf
-#BuildRequires : protobuf-c
-BuildRequires : bazel
 BuildRequires : Keras
 BuildRequires : Keras_Applications
 BuildRequires : Keras_Preprocessing
-BuildRequires : mkl-dnn-dev
+BuildRequires : bazel
 BuildRequires : c-ares-dev
+BuildRequires : mkl-dnn-dev
+BuildRequires : numpy
+BuildRequires : openjdk
+BuildRequires : openjdk-dev
+BuildRequires : python3-dev
+BuildRequires : setuptools
 BuildRequires : tensorflow
+BuildRequires : wheel
 
-
-
-
-Requires: Werkzeug
-Requires: Markdown
-Requires: bleach
-Requires: backports.weakref
-Requires: tensorboard
-Requires: absl-py
-Requires: astor
-Requires: grpcio
-Requires: gast
 Requires : Keras
 Requires : Keras_Applications
 Requires : Keras_Preprocessing
+Requires : Markdown
+Requires : Werkzeug
+Requires : absl-py
+Requires : astor
+Requires : backports.weakref
+Requires : bleach
+Requires : gast
+Requires : grpcio
+Requires : tensorboard
 Requires : termcolor
 
 
