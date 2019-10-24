@@ -1,9 +1,9 @@
 Name     : tensorflow-probability
 Version  : 0.7
-Release  : 5
+Release  : 6
 URL      : https://github.com/tensorflow/probability/archive/v0.7.tar.gz
 Source0  : https://github.com/tensorflow/probability/archive/v0.7.tar.gz
-
+Source1  : https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip
 
 
 %define __strip /bin/true
@@ -59,9 +59,11 @@ export SOURCE_DATE_EPOCH=1485959355
 
 InstallCache() {
 	sha256=`sha256sum $1 | cut -f1 -d" "`
-	mkdir -p /tmp/cache/content_addressable/sha256/$sha256/
-	cp $1 /tmp/cache/content_addressable/sha256/$sha256/file
+        mkdir -p /builddir/.cache/bazel/_bazel_mockbuild/cache/repos/v1/content_addressable/sha256/$sha256/
+	cp $1 /builddir/.cache/bazel/_bazel_mockbuild/cache/repos/v1/content_addressable/sha256/$sha256/file
 }
+
+InstallCache %{SOURCE1}
 
 bazel build --copt=-O3  :pip_pkg
 ./bazel-bin/pip_pkg  /tmp/probability_pip
