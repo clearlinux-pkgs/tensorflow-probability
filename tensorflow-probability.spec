@@ -1,8 +1,8 @@
 Name     : tensorflow-probability
-Version  : 0.7
-Release  : 6
-URL      : https://github.com/tensorflow/probability/archive/v0.7.tar.gz
-Source0  : https://github.com/tensorflow/probability/archive/v0.7.tar.gz
+Version  : 0.8.0
+Release  : 7
+URL      : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
+Source0  : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
 Source1  : https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip
 
 
@@ -49,7 +49,7 @@ Requires : termcolor
 TensorFlow
 
 %prep
-%setup -q  -n probability-0.7
+%setup -q  -n probability-0.8.0
 
 #%patch2 -p1
 
@@ -73,7 +73,7 @@ bazel build --copt=-O3  :pip_pkg
 export SOURCE_DATE_EPOCH=1485959355
 
 
-pip3 install --no-deps --force-reinstall --root %{buildroot}  /tmp/probability_pip/tfp_nightly-0.7.0-py2.py3-none-any.whl
+pip3 install --no-deps --force-reinstall --root %{buildroot} /tmp/probability_pip/tfp_nightly-0.8.0rc0-py2.py3-none-any.whl
 
 %files
 %defattr(-,root,root,-)
