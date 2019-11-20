@@ -1,0 +1,26 @@
+From 7a9680130660dbbd64edcac22cb14ed1e40c13fe Mon Sep 17 00:00:00 2001
+From: Jacob Burnim <jburnim@google.com>
+Date: Fri, 4 Oct 2019 10:21:53 -0700
+Subject: [PATCH 2/2] Unpin cloudpickle version.
+
+PiperOrigin-RevId: 272902829
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 95c85e76..19a67ca6 100644
+--- a/setup.py
++++ b/setup.py
+@@ -31,7 +31,7 @@ REQUIRED_PACKAGES = [
+     'six >= 1.10.0',
+     'numpy >= 1.13.3',
+     'decorator',
+-    'cloudpickle == 1.1.1',
++    'cloudpickle >= 1.2.2',
+     'gast >= 0.2'  # For autobatching
+ ]
+ 
+-- 
+2.24.0
+

@@ -1,6 +1,6 @@
 Name     : tensorflow-probability
 Version  : 0.8.0
-Release  : 8
+Release  : 9
 URL      : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
 Source0  : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
 Source1  : https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip

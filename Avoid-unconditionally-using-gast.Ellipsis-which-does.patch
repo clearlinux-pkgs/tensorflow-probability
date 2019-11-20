@@ -1,0 +1,89 @@
+From 9cf633a33ec916a79f6dd34848e8c1345d48502e Mon Sep 17 00:00:00 2001
+From: Alexey Radul <axch@google.com>
+Date: Thu, 19 Sep 2019 15:26:01 -0700
+Subject: [PATCH 1/2] Avoid unconditionally using gast.Ellipsis, which doesn't
+ exist in gast 0.3.
+
+Also unpin dependency, to allow gast 0.3+
+Keeping the pin for the TF1 nightly, because that one is itself broken on gast 0.3+
+
+Fixes #552.
+
+PiperOrigin-RevId: 270138305
+---
+ setup.py                                      |  2 +-
+ .../experimental/auto_batching/frontend.py    | 27 ++++++++++++++++---
+ testing/run_tests.sh                          |  4 ++-
+ 3 files changed, 27 insertions(+), 6 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 145516fa..95c85e76 100644
+--- a/setup.py
++++ b/setup.py
+@@ -32,7 +32,7 @@ REQUIRED_PACKAGES = [
+     'numpy >= 1.13.3',
+     'decorator',
+     'cloudpickle == 1.1.1',
+-    'gast >= 0.2, < 0.3'  # For autobatching
++    'gast >= 0.2'  # For autobatching
+ ]
+ 
+ if '--release' in sys.argv:
+diff --git a/tensorflow_probability/python/experimental/auto_batching/frontend.py b/tensorflow_probability/python/experimental/auto_batching/frontend.py
+index a45def19..27cc1bea 100644
+--- a/tensorflow_probability/python/experimental/auto_batching/frontend.py
++++ b/tensorflow_probability/python/experimental/auto_batching/frontend.py
+@@ -130,12 +130,31 @@ def _parse_and_analyze(f, autobatch_functions):
+   return node, ctx
+ 
+ 
+-_LITERALS = (gast.Num, gast.Str, gast.Bytes, gast.Ellipsis, gast.NameConstant)
++def _is_literal(node):
++  """Detects whether the given node is a literal.
+ 
++  This is surprisingly difficult to do robustly across versions of Python and
++  gast, as the parsing of constants has changed, if I may, constantly.
+ 
+-def _is_literal(node):
+-  if isinstance(node, _LITERALS):
+-    return True
++  Args:
++    node: The node whose status to check.
++
++  Returns:
++    literal: A Python `bool` giving whether the node is constant or not.
++  """
++  try:
++    # TODO(b/140808434): Once we or TF decide to roll forward to gast 0.3, we
++    # won't need this clause.
++    # gast pre-0.3
++    literals = (gast.Num, gast.Str, gast.Bytes, gast.Ellipsis,
++                gast.NameConstant)
++    if isinstance(node, literals):
++      return True
++  except AttributeError:
++    # gast 0.3+
++    if isinstance(node, gast.Constant):
++      return True
++  # Python 2
+   if isinstance(node, gast.Name) and node.id in ['True', 'False', 'None']:
+     return True
+   return False
+diff --git a/testing/run_tests.sh b/testing/run_tests.sh
+index 2b2b4005..63e841b7 100755
+--- a/testing/run_tests.sh
++++ b/testing/run_tests.sh
+@@ -70,7 +70,9 @@ find_version_str() {
+ install_python_packages() {
+   # NB: tf-nightly pulls in other deps, like numpy, absl, and six, transitively.
+   TF_VERSION_STR=$(find_version_str tf-nightly)
+-  pip install tf-nightly==$TF_VERSION_STR
++  pip install tf-nightly==$TF_VERSION_STR \
++    gast==0.2.2 \
++    tf-estimator-nightly==1.14.0.dev2019091701
+ 
+   # The following unofficial dependencies are used only by tests.
+   pip install scipy hypothesis matplotlib mock
+-- 
+2.24.0
+
