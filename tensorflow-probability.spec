@@ -1,6 +1,6 @@
 Name     : tensorflow-probability
 Version  : 0.8.0
-Release  : 7
+Release  : 8
 URL      : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
 Source0  : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
 Source1  : https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip
@@ -13,6 +13,11 @@ Source1  : https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 GPL-3.0 MPL-2.0-no-copyleft-exception
+
+
+Patch2 : Avoid-unconditionally-using-gast.Ellipsis-which-does.patch
+Patch3 : Unpin-cloudpickle-version.patch
+
 BuildRequires : pip
 
 BuildRequires : Keras
@@ -46,12 +51,14 @@ Requires : termcolor
 
 
 %description
-TensorFlow
+TensorFlow Probability
 
 %prep
 %setup -q  -n probability-0.8.0
 
-#%patch2 -p1
+%patch2 -p1
+%patch3 -p1
+
 
 %build
 export LANG=C
