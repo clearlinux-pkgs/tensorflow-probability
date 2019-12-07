@@ -1,6 +1,6 @@
 Name     : tensorflow-probability
 Version  : 0.8.0
-Release  : 10
+Release  : 11
 URL      : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
 Source0  : https://github.com/tensorflow/probability/archive/0.8.0.tar.gz
 Source1  : https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip
@@ -72,17 +72,14 @@ InstallCache() {
 
 InstallCache %{SOURCE1}
 
-bazel build --copt=-O3  :pip_pkg
-./bazel-bin/pip_pkg  /tmp/probability_pip
-
+bazel build --copt=-O3 :pip_pkg
+./bazel-bin/pip_pkg  /tmp/probability_pip --release
 
 %install
 export SOURCE_DATE_EPOCH=1485959355
 
-
-pip3 install --no-deps --force-reinstall --root %{buildroot} /tmp/probability_pip/tfp_nightly-0.8.0rc0-py2.py3-none-any.whl
+pip3 install --no-deps --force-reinstall --root %{buildroot} /tmp/probability_pip/tensorflow_probability-0.8.0rc0-py2.py3-none-any.whl
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/python3.7/site-packages/tensorflow_probability*
-/usr/lib/python3.7/site-packages/tfp_nightly*
+/usr/lib/python3*/site-packages/tensorflow_probability*
