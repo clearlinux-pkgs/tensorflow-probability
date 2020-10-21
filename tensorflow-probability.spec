@@ -1,6 +1,6 @@
 Name     : tensorflow-probability
 Version  : 0.11.1
-Release  : 13
+Release  : 14
 URL      : https://github.com/tensorflow/probability/archive/v0.11.1/tensorflow-probability-0.11.1.tar.gz
 Source0  : https://github.com/tensorflow/probability/archive/v0.11.1/tensorflow-probability-0.11.1.tar.gz
 Summary  : Probabilistic reasoning and statistical analysis in TensorFlow
@@ -68,7 +68,6 @@ export GCC_IGNORE_WERROR=1
 bazel build \
   --repository_cache=/var/tmp/cache \
   --copt=-O3 \
-  --record_rule_instantiation_callstack \
   --verbose_failures \
   //:pip_pkg
 
